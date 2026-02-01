@@ -70,6 +70,7 @@
           "*.synctex.gz"
         ],
         "ltex.language": "en-US",
+        "ltex.java.path": "",
         "editor.wordWrap": "on",
         "files.associations": {
           "*.tex": "latex",

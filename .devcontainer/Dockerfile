@@ -1,4 +1,4 @@
-FROM texlive/texlive:latest-small
+FROM texlive/texlive:latest-full
 
 LABEL maintainer="DevContainer LaTeX arXiv"
 LABEL description="LaTeX environment for arXiv submissions"
@@ -16,46 +16,19 @@ RUN groupadd --gid $USER_GID $USERNAME \
     && chmod 0440 /etc/sudoers.d/$USERNAME \
     && rm -rf /var/lib/apt/lists/*
 
-# Update tlmgr and install required packages
-RUN tlmgr update --self --all \
-    && tlmgr install \
-    # Typography and formatting
-    titlesec \
-    xcolor \
-    microtype \
-    # References
-    cleveref \
-    hyperref \
-    # Fonts (Type 1 for arXiv compatibility)
-    psfonts \
-    cm-super \
-    # Math packages
-    amsmath \
-    amssymb \
-    mathtools \
-    # Figures and tables
-    graphicx \
-    booktabs \
-    float \
-    caption \
-    subcaption \
-    # Layout
-    geometry \
-    fancyhdr \
-    # Bibliography (traditional bibtex for arXiv)
-    natbib \
-    # Utilities
-    lipsum \
-    todonotes \
-    xspace \
-    enumitem
+# Note: latest-full image includes all packages, no need for tlmgr install
 
-# System tools
+# System tools + Java (required for LTeX language server)
 RUN apt-get update && apt-get install -y --no-install-recommends \
     git \
     make \
     zip \
+    default-jre-headless \
+    curl \
     && rm -rf /var/lib/apt/lists/*
+
+# Note: ltex-ls will be downloaded automatically by the VS Code extension
+# which handles multi-architecture support (including ARM64)
 
 # Verify installation
 RUN pdflatex --version && bibtex --version
