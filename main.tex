@@ -1,0 +1,222 @@
+% arXiv-compatible article template
+% Compile with pdfLaTeX + BibTeX
+% Uses arxiv.sty from https://github.com/kourgeorge/arxiv-style
+
+\documentclass[11pt]{article}
+
+% ============================================================
+% ARXIV STYLE
+% ============================================================
+\usepackage{arxiv}
+
+% ============================================================
+% PACKAGES
+% ============================================================
+
+% --- Typography ---
+\usepackage[T1]{fontenc}        % Type 1 fonts (required for arXiv)
+\usepackage{microtype}          % Improved typography
+\usepackage{xspace}             % Smart spacing after macros
+
+% --- Math ---
+\usepackage{amsmath, amssymb, mathtools}
+
+% --- Colors ---
+\usepackage[dvipsnames]{xcolor}
+
+% --- Figures and Tables ---
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{float}
+\usepackage{caption}
+\usepackage{subcaption}
+
+% --- Lists ---
+\usepackage{enumitem}
+
+% --- Bibliography ---
+\usepackage[numbers, sort&compress]{natbib}
+
+% --- Hyperlinks (load last) ---
+\usepackage[
+    colorlinks=true,
+    linkcolor=blue!60!black,
+    citecolor=green!50!black,
+    urlcolor=blue!70!black
+]{hyperref}
+\usepackage[capitalise, noabbrev]{cleveref}
+
+% ============================================================
+% CUSTOM COMMANDS
+% ============================================================
+
+% Math shortcuts
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\Var}{\mathrm{Var}}
+
+% Text shortcuts
+\newcommand{\ie}{i.e.\xspace}
+\newcommand{\eg}{e.g.\xspace}
+\newcommand{\cf}{cf.\xspace}
+\newcommand{\etal}{et~al.\xspace}
+
+% TODO notes (disable for final version)
+\usepackage{todonotes}
+% \usepackage[disable]{todonotes}  % Uncomment to hide all todos
+
+% ============================================================
+% METADATA
+% ============================================================
+
+\title{Your Paper Title Here}
+\shorttitle{Short Title for Header}
+
+\author{
+    First Author\thanks{Corresponding author: \texttt{first@university.edu}} \\
+    \small Department of Computer Science \\
+    \small University Name \\
+    \and
+    Second Author \\
+    \small Research Lab \\
+    \small Institution Name
+}
+
+\date{\today}
+
+% ============================================================
+% DOCUMENT
+% ============================================================
+\begin{document}
+
+\maketitle
+
+% ------------------------------------------------------------
+\begin{abstract}
+    Brief summary of the paper (150--250 words). State the problem, 
+    your approach, main results, and conclusions.
+\end{abstract}
+
+\noindent\textbf{Keywords:} keyword1, keyword2, keyword3
+
+% ------------------------------------------------------------
+\section{Introduction}
+\label{sec:introduction}
+
+Introduce the problem and motivation. Prior work has shown promising 
+results~\citep{example2023}. We build upon these findings and propose 
+a novel approach.
+
+\todo[inline]{Add more background references}
+
+Our main contributions are:
+\begin{itemize}[noitemsep]
+    \item First contribution
+    \item Second contribution
+    \item Third contribution
+\end{itemize}
+
+% ------------------------------------------------------------
+\section{Related Work}
+\label{sec:related}
+
+Discuss relevant prior work. \citet{example2023} introduced the 
+foundational concepts. See also~\citep{anotherwork2022} for a 
+comprehensive survey.
+
+% ------------------------------------------------------------
+\section{Method}
+\label{sec:method}
+
+Describe your approach in detail.
+
+\subsection{Problem Formulation}
+
+Let $x \in \R^n$ denote the input. We aim to find:
+\begin{equation}
+    \min_{w} \frac{1}{N} \sum_{i=1}^{N} \mathcal{L}(f(x_i; w), y_i)
+    \label{eq:objective}
+\end{equation}
+where $\mathcal{L}$ is the loss function.
+
+\subsection{Algorithm}
+
+Our algorithm proceeds as follows (see \cref{eq:objective}):
+\begin{enumerate}[noitemsep]
+    \item Initialize parameters $w_0$
+    \item For each iteration $t = 1, \ldots, T$:
+    \begin{enumerate}
+        \item Compute gradient $\nabla \mathcal{L}$
+        \item Update $w_{t+1} = w_t - \eta \nabla \mathcal{L}$
+    \end{enumerate}
+    \item Return $w_T$
+\end{enumerate}
+
+% ------------------------------------------------------------
+\section{Experiments}
+\label{sec:experiments}
+
+\subsection{Setup}
+
+Describe datasets, baselines, and evaluation metrics.
+
+\subsection{Results}
+
+Present your results. See \cref{tab:results} and \cref{fig:example}.
+
+\begin{table}[htbp]
+    \centering
+    \caption{Comparison with baselines on benchmark dataset.}
+    \label{tab:results}
+    \begin{tabular}{lcc}
+        \toprule
+        Method & Accuracy (\%) & Runtime (s) \\
+        \midrule
+        Baseline 1 & 85.2 & 12.3 \\
+        Baseline 2 & 87.1 & 15.7 \\
+        \textbf{Ours} & \textbf{91.4} & 14.2 \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\begin{figure}[htbp]
+    \centering
+    % \includegraphics[width=0.8\linewidth]{figures/results.pdf}
+    \fbox{\parbox{0.6\linewidth}{\centering [Figure placeholder]}}
+    \caption{Performance comparison across different settings.}
+    \label{fig:example}
+\end{figure}
+
+% ------------------------------------------------------------
+\section{Discussion}
+\label{sec:discussion}
+
+Interpret results, discuss limitations, and suggest future work.
+
+% ------------------------------------------------------------
+\section{Conclusion}
+\label{sec:conclusion}
+
+Summarize key findings and contributions.
+
+% ------------------------------------------------------------
+\section*{Acknowledgments}
+
+Thank funding sources and collaborators. 
+\todo{Add grant numbers}
+
+% ------------------------------------------------------------
+\bibliographystyle{plainnat}
+\bibliography{references}
+
+% ------------------------------------------------------------
+% APPENDIX (optional)
+% ------------------------------------------------------------
+\appendix
+\section{Additional Results}
+\label{app:additional}
+
+Include supplementary material here.
+
+\end{document}

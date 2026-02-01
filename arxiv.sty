@@ -1,0 +1,145 @@
+% arxiv.sty
+% LaTeX style for preprint papers (arXiv, bioRxiv, etc.)
+% Based on NeurIPS style, modified for preprints
+% Source: https://github.com/kourgeorge/arxiv-style
+% License: Free to use and modify
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{arxiv}[2024/01/01 arXiv preprint style]
+
+% ---------------------------------------------------------
+% Fonts
+% ---------------------------------------------------------
+\renewcommand{\rmdefault}{ptm}
+\renewcommand{\sfdefault}{phv}
+
+% ---------------------------------------------------------
+% Page layout
+% ---------------------------------------------------------
+\RequirePackage[
+    verbose=true,
+    letterpaper,
+    textheight=9in,
+    textwidth=6in,
+    top=1in,
+    headheight=14pt,
+    headsep=25pt,
+    footskip=30pt
+]{geometry}
+
+% ---------------------------------------------------------
+% Headers and footers
+% ---------------------------------------------------------
+\RequirePackage{fancyhdr}
+\fancyhf{}
+\pagestyle{fancy}
+\renewcommand{\headrulewidth}{0.4pt}
+\fancyheadoffset{0pt}
+\fancyhead[C]{\@shorttitle}
+\fancyfoot[C]{\thepage}
+
+% ---------------------------------------------------------
+% Title and author
+% ---------------------------------------------------------
+\def\@shorttitle{}
+\newcommand{\shorttitle}[1]{\def\@shorttitle{#1}}
+
+\def\@maketitle{%
+    \newpage
+    \null
+    \vskip 2em%
+    \begin{center}%
+        \let \footnote \thanks
+        {\LARGE\bfseries \@title \par}%
+        \vskip 1.5em%
+        {\large
+            \lineskip .5em%
+            \begin{tabular}[t]{c}%
+                \@author
+            \end{tabular}\par}%
+        \vskip 1em%
+        {\large \@date}%
+    \end{center}%
+    \par
+    \vskip 1.5em%
+}
+
+% ---------------------------------------------------------
+% Abstract
+% ---------------------------------------------------------
+\renewenvironment{abstract}{%
+    \centerline{\large\bfseries Abstract}%
+    \begin{quote}%
+}{%
+    \end{quote}%
+}
+
+% ---------------------------------------------------------
+% Sections
+% ---------------------------------------------------------
+\renewcommand\section{\@startsection{section}{1}{\z@}%
+    {-3.5ex \@plus -1ex \@minus -.2ex}%
+    {2.3ex \@plus.2ex}%
+    {\normalfont\large\bfseries}}
+
+\renewcommand\subsection{\@startsection{subsection}{2}{\z@}%
+    {-3.25ex\@plus -1ex \@minus -.2ex}%
+    {1.5ex \@plus .2ex}%
+    {\normalfont\normalsize\bfseries}}
+
+\renewcommand\subsubsection{\@startsection{subsubsection}{3}{\z@}%
+    {-3.25ex\@plus -1ex \@minus -.2ex}%
+    {1.5ex \@plus .2ex}%
+    {\normalfont\normalsize\bfseries}}
+
+\renewcommand\paragraph{\@startsection{paragraph}{4}{\z@}%
+    {3.25ex \@plus1ex \@minus.2ex}%
+    {-1em}%
+    {\normalfont\normalsize\bfseries}}
+
+\renewcommand\subparagraph{\@startsection{subparagraph}{5}{\parindent}%
+    {3.25ex \@plus1ex \@minus .2ex}%
+    {-1em}%
+    {\normalfont\normalsize\bfseries}}
+
+% ---------------------------------------------------------
+% Footnotes
+% ---------------------------------------------------------
+\renewcommand\footnoterule{%
+    \kern-3\p@
+    \hrule\@width.4\columnwidth
+    \kern2.6\p@}
+
+% ---------------------------------------------------------
+% Lists
+% ---------------------------------------------------------
+\setlength\leftmargini   {2em}
+\setlength\leftmarginii  {2.2em}
+\setlength\leftmarginiii {1.87em}
+\setlength\leftmarginiv  {1.7em}
+\setlength\leftmarginv   {1em}
+\setlength\leftmarginvi  {1em}
+
+% ---------------------------------------------------------
+% Float placement
+% ---------------------------------------------------------
+\renewcommand{\topfraction}{0.85}
+\renewcommand{\bottomfraction}{0.4}
+\renewcommand{\textfraction}{0.1}
+\renewcommand{\floatpagefraction}{0.7}
+
+% ---------------------------------------------------------
+% Captions
+% ---------------------------------------------------------
+\long\def\@makecaption#1#2{%
+    \vskip\abovecaptionskip
+    \sbox\@tempboxa{#1: #2}%
+    \ifdim \wd\@tempboxa >\hsize
+        #1: #2\par
+    \else
+        \global \@minipagefalse
+        \hb@xt@\hsize{\hfil\box\@tempboxa\hfil}%
+    \fi
+    \vskip\belowcaptionskip}
+
+\endinput
